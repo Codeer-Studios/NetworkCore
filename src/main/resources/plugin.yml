@@ -1,0 +1,5 @@
+name: NetworkCore
+version: '1.0-SNAPSHOT'
+main: NetworkCore.NetworkCore
+api-version: '1.21'
+author: 'Thomas Froud'
