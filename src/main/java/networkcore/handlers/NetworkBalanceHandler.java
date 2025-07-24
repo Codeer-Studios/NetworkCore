@@ -15,7 +15,7 @@ public class NetworkBalanceHandler implements java.util.function.Consumer<String
 
     private final ProxyServer proxyServer;
     private final Gson gson = new Gson();
-    private static final MinecraftChannelIdentifier CHANNEL = MinecraftChannelIdentifier.create("networkbalance", "core");
+    private static final MinecraftChannelIdentifier CHANNEL = MinecraftChannelIdentifier.create("network", "core");
 
     public NetworkBalanceHandler(ProxyServer proxyServer) {
         this.proxyServer = proxyServer;
@@ -31,17 +31,30 @@ public class NetworkBalanceHandler implements java.util.function.Consumer<String
         String toName = (String) msg.get("to");
         Double amount = msg.containsKey("amount") ? ((Number) msg.get("amount")).doubleValue() : null;
 
+        System.out.println("[NetworkBalanceHandler] Received message: " + jsonMessage);
+        System.out.println("[NetworkBalanceHandler] Type: " + type + ", From: " + fromName + ", To: " + toName);
+
         switch (type) {
             case "PAY_REQUEST" -> {
                 Player target = proxyServer.getPlayer(toName).orElse(null);
-                if (target == null) return;
+                if (target == null) {
+                    System.out.println("[NetworkBalanceHandler] Target player not found on proxy: " + toName);
+                    return;
+                }
+                System.out.println("[NetworkBalanceHandler] Sending PAY_REQUEST to " + toName + "'s server");
                 sendPluginMessage(target, jsonMessage);
+                break;
             }
 
             case "PAY_CONFIRM" -> {
                 Player sender = proxyServer.getPlayer(fromName).orElse(null);
-                if (sender == null) return;
+                if (sender == null) {
+                    System.out.println("[NetworkBalanceHandler] Sender player not found on proxy: " + fromName);
+                    return;
+                }
+                System.out.println("[NetworkBalanceHandler] Sending PAY_CONFIRM to " + fromName + "'s server");
                 sendPluginMessage(sender, jsonMessage);
+                break;
             }
 
             default -> {
@@ -51,7 +64,15 @@ public class NetworkBalanceHandler implements java.util.function.Consumer<String
     }
 
     private void sendPluginMessage(Player player, String json) {
+        System.out.println("[NetworkBalanceHandler] Sending plugin message to backend for player " + player.getUsername() +
+                " on server " + player.getCurrentServer().map(s -> s.getServerInfo().getName()).orElse("none"));
         byte[] data = json.getBytes(StandardCharsets.UTF_8);
-        player.sendPluginMessage(CHANNEL, data);
+
+        System.out.println(json);
+        System.out.println(CHANNEL);
+
+        player.getCurrentServer().ifPresent(serverConnection -> {
+            serverConnection.sendPluginMessage(CHANNEL, data);
+        });
     }
 }

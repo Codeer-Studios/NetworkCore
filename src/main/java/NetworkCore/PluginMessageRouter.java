@@ -13,8 +13,10 @@ public class PluginMessageRouter {
     }
 
     public static void sendMessage(String channel, String message) {
+        System.out.println("[PluginMessageRouter] Received message for channel: " + channel);
         Consumer<String> handler = pluginHandlers.get(channel);
         if (handler != null) {
+            System.out.println("[PluginMessageRouter] Found handler, forwarding...");
             handler.accept(message);
         }
     }

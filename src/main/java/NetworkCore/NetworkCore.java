@@ -4,6 +4,7 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
 
 import javax.inject.Inject;
 import java.util.logging.Logger;
@@ -23,6 +24,10 @@ public class NetworkCore {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
         logger.info("[NetworkCore] Proxy initialized");
+
+        server.getChannelRegistrar().register(
+                MinecraftChannelIdentifier.create("network", "core")
+        );
 
         // Register plugin message listener
         server.getEventManager().register(this, new VelocityPluginMessageListener(server));
