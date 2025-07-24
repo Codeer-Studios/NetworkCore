@@ -6,7 +6,6 @@ import com.velocitypowered.api.event.connection.PluginMessageEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.ServerConnection;
-import networkcore.handlers.NetworkBalanceHandler;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -20,8 +19,6 @@ public class VelocityPluginMessageListener {
     public VelocityPluginMessageListener(ProxyServer server) {
         this.server = server;
 
-        // Register the networkbalance handler on startup
-        PluginMessageRouter.registerPlugin("networkbalance", new NetworkBalanceHandler(server));
     }
 
     @Subscribe
