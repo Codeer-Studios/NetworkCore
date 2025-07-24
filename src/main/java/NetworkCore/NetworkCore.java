@@ -1,4 +1,4 @@
-package NetworkCore;
+package networkcore;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import java.util.logging.Logger;
 
 
-@Plugin(id = "NetworkCore", name = "NetworkCore", version = "1.0", authors = {"Thomas Froud"})
+@Plugin(id = "networkcore", name = "NetworkCore", version = "1.0", authors = {"Thomas Froud"})
 public class NetworkCore {
 
     private final ProxyServer server;
@@ -27,7 +27,7 @@ public class NetworkCore {
     }
 
     public static Logger getLogger() {
-        return java.util.logging.Logger.getLogger("NetworkCore");
+        return java.util.logging.Logger.getLogger("networkcore");
     }
 
     public ProxyServer getServer() {

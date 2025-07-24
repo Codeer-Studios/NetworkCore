@@ -1,4 +1,4 @@
-package NetworkCore;
+package networkcore;
 
 import java.util.HashMap;
 import java.util.Map;
