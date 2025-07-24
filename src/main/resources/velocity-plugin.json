@@ -1,0 +1,7 @@
+{
+  "id": "networkcore",
+  "name": "NetworkCore",
+  "version": "1.0",
+  "authors": ["Thomas Froud"],
+  "main": "com.codeer-studios.networkcore.NetworkCore"
+}
