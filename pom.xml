@@ -97,6 +97,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- YAML parser -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+        </dependency>
+
         <!-- Gson for JSON parsing -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
